@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "portfolio-cb13b": {
+      "hosting": {
+        "portfolio-admin-angular": [
+          "anirudha0702"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "portfolio-cb13b"
+  }
+}
