@@ -31,7 +31,8 @@ export class AuthService {
           email: user.email!,
           photoURL: user.photoURL!
         })
-        this.router.navigate(['/dashboard'])
+        if(this.router.url==="/login" || this.router.url==="/register")
+          this.router.navigate(['/dashboard'])
       }
       else{
         this.authState.next(null)

@@ -4,7 +4,7 @@ export interface IProject{
     title: string;
     github: string;
     image: string;
-    techStack: string[];
+    techStack: string;
     live: string;
 }
 export interface IUser{

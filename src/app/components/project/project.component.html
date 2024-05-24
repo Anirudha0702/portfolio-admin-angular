@@ -1,14 +1,150 @@
 @if (loader) {
-    <div class="loader"></div>
-    } 
-@else {
-    <div class="container">
-        <div class="row">
-        <div class="col-md-12">
-            <h1>{{ project.title }}</h1>
-            <p>{{ project.description }}</p>
-            
-        </div>
-        </div>
+<div class="loader"></div>
+} @else {
+<div class="min-h-svh grid grid-cols-[1fr_2fr] gap-2">
+  <div class="bg-blue-950 p-3">
+    <div class="group flex items-center justify-start gap-2 mb-3">
+      <h1 class="text-4xl">{{ project.title }}</h1>
+      <i
+        class="cursor-pointer fa-solid hidden fa-pen-to-square group-hover:block"
+        [ngClass]=""
+        (click)="startEdit('title')"
+      ></i>
     </div>
-}
+    <div class="group flex items-center gap-2 mb-3">
+      <p class="text-sm">{{ project.description }}</p>
+      <i
+        class="cursor-pointer fa-solid hidden fa-pen-to-square group-hover:block"
+        [ngClass]=""
+        (click)="startEdit('description')"
+      ></i>
+    </div>
+    <div class="group flex items-center gap-2 mb-3">
+      @for (tech of project.techStack?.split(','); track $index) {
+      <div class="badge badge-info gap-2">
+        {{ tech }}
+      </div>
+      }
+    </div>
+    <div class="group flex items-center gap-2 mb-3">
+      <i class="fa-brands fa-github"></i>
+      <a class="link link-info line-clamp-1" [href]="project.github">{{
+        project.github
+      }}</a>
+      <i
+        class="cursor-pointer fa-solid hidden fa-pen-to-square group-hover:block"
+        [ngClass]=""
+        (click)="startEdit('github')"
+      ></i>
+    </div>
+    <div class="group flex items-center gap-2 mb-3">
+      <i class="fa-solid fa-link"></i>
+      <a
+        class="link link-info line-clamp-1"
+        [href]="project.live"
+        (click)="startEdit('live')"
+        >{{ project.live }}</a
+      >
+      <i
+        class="cursor-pointer fa-solid hidden fa-pen-to-square group-hover:block"
+        [ngClass]=""
+      ></i>
+    </div>
+  </div>
+  <div class="relative">
+    <img
+      src="{{ project.image }}"
+      alt=""
+      class="top-0 absolute object-contain"
+    />
+  </div>
+</div>
+@if(updateFlag){
+<dialog id="my_modal_3" class="modal" open>
+  <div class="modal-box">
+    <button
+      class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+      (click)="closeEdit()"
+      [disabled]="processing"
+    >
+      ✕
+    </button>
+    @if(updateField === 'title'){
+    <form action="" class="flex flex-wrap justify-center items-center gap-2"
+    (submit)="updateProject($event,'title')"
+    >
+        <label class="form-control w-full">
+            <div class="label">
+              <span class="label-text">Title</span>
+            </div>
+            <input
+              type="text"
+              placeholder="Project  Title"
+              class="input input-bordered w-full"
+              name="title"
+              required
+            />
+          </label>
+          <button 
+          class="btn  w-full h-12 mt-6 btn-outline" 
+          [ngClass]="{ 'btn-disabled': processing ,'btn-info': !processing }"
+          [disabled]="processing"
+          type="submit">
+            {{ processing ? "Processing..." : "Add" }}
+          </button>
+    </form>
+    }
+    @else if (updateField==='description') {
+        <form action="" class="flex flex-wrap justify-center items-center gap-2"
+    (submit)="updateProject($event,'description')"
+    >
+        <label class="form-control w-full">
+            <div class="label">
+              <span class="label-text">Description</span>
+            </div>
+            <input
+              type="text"
+              placeholder="Project  Description"
+              class="input input-bordered w-full"
+              name="title"
+              required
+            />
+          </label>
+          <button 
+          class="btn  w-full h-12 mt-6 btn-outline" 
+          [ngClass]="{ 'btn-disabled': processing ,'btn-info': !processing }"
+          [disabled]="processing"
+          type="submit">
+            {{ processing ? "Processing..." : "Add" }}
+          </button>
+    </form>
+    }
+    @else if (updateField==='github') {
+        <form action="" class="flex flex-wrap justify-center items-center gap-2"
+    (submit)="updateProject($event,'github')"
+    >
+        <label class="form-control w-full">
+            <div class="label">
+              <span class="label-text">GitHub</span>
+            </div>
+            <input
+              type="text"
+              placeholder="GitHub Link"
+              class="input input-bordered w-full"
+              name="title"
+              required
+            />
+          </label>
+          <button 
+          class="btn  w-full h-12 mt-6 btn-outline" 
+          [ngClass]="{ 'btn-disabled': processing ,'btn-info': !processing }"
+          [disabled]="processing"
+          type="submit">
+            {{ processing ? "Processing..." : "Add" }}
+          </button>
+    </form>
+    }
+
+  </div>
+</dialog>
+} }
