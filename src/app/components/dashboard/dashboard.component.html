@@ -1,0 +1,114 @@
+<div
+  class="flex flex-col justify-center items-center h-[calc(100svh-4.5rem)] gap-2 bg-slate-950"
+>
+  @for(project of projects;track project.id){
+  <button
+    class="btn btn-outline btn-info w-full max-w-xs rounded-none"
+    [routerLink]="['/projects/', project.id]"
+  >
+    {{ project.title }}
+  </button>
+  }
+  <button
+    class="btn btn-outline btn-info w-full max-w-xs rounded-none"
+    (click)="openModal()"
+  >
+    Add Project
+  </button>
+  <!-- {{ uploadedImageUrl }} -->
+</div>
+@if(addProjectFlag){
+
+<dialog id="my_modal_3" class="modal" open>
+  <div class="modal-box">
+    <button
+      class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+      (click)="closeModal()"
+    >
+      ✕
+    </button>
+    <form
+      (submit)="addProject($event)"
+      class="flex flex-wrap justify-center items-center gap-2"
+    >
+      <label class="form-control w-full">
+        <div class="label">
+          <span class="label-text">Title</span>
+        </div>
+        <input
+          type="text"
+          placeholder="Project  Title"
+          class="input input-bordered w-full"
+          name="title"
+          required
+        />
+      </label>
+
+      <label class="form-control w-full">
+        <div class="label">
+          <span class="label-text">Description</span>
+        </div>
+        <input
+          type="text"
+          placeholder="Project Description"
+          class="input input-bordered w-full"
+          required
+          name="description"
+        />
+      </label>
+      <label class="form-control w-full">
+        <div class="label">
+          <span class="label-text">Techs</span>
+        </div>
+        <input
+          type="text"
+          placeholder="use , to separate techs"
+          class="input input-bordered w-full"
+          required
+          name="techStack"
+        />
+      </label>
+      <label class="form-control w-full">
+        <div class="label">
+          <span class="label-text">Github</span>
+        </div>
+        <input
+          type="text"
+          placeholder="Github Link"
+          class="input input-bordered w-full"
+          name="github"
+        />
+      </label>
+      <label class="form-control w-full">
+        <div class="label">
+          <span class="label-text">Live Link</span>
+        </div>
+        <input
+          type="text"
+          placeholder="Live Link"
+          class="input input-bordered w-full"
+          name="live"
+        />
+      </label>
+      <label class="form-control w-full">
+        <div class="label">
+          <span class="label-text">Live Demo</span>
+        </div>
+        <input
+          type="file"
+          class="file-input file-input-bordered w-full"
+          (change)="onChange($event)"
+        />
+      </label>
+      <button 
+      class="btn  w-full h-12 mt-6 btn-outline" 
+      [ngClass]="{ 'btn-disabled': processing ,'btn-info': !processing }"
+      [disabled]="processing"
+      type="submit">
+        {{ processing ? "Processing..." : "Add" }}
+      </button>
+    </form>
+  </div>
+</dialog>
+
+}
