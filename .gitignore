@@ -8,9 +8,9 @@
 .vscode
 
 
-
+.env
 # Miscellaneous
-/src/environments/*.ts
+env.d.ts
 /.angular/cache
 .sass-cache/
 /connect.lock

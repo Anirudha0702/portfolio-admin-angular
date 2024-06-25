@@ -20,7 +20,7 @@
       ></i>
     </div>
     <div class="group flex items-center gap-2 mb-3">
-      @for (tech of project.techStack?.split(','); track $index) {
+      @for (tech of project.techStack.split(','); track $index) {
       <div class="badge badge-info gap-2">
         {{ tech }}
       </div>
